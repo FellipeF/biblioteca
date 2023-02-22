@@ -16,32 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `estudante`
+-- Table structure for table `livro`
 --
 
-DROP TABLE IF EXISTS `estudante`;
+DROP TABLE IF EXISTS `livro`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `estudante` (
+CREATE TABLE `livro` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nome` varchar(50) NOT NULL,
-  `email` varchar(25) NOT NULL,
-  `telefone` varchar(20) NOT NULL,
-  `matricula` varchar(20) NOT NULL,
-  `cpf` varchar(20) NOT NULL,
-  `codigo_acesso` varchar(15) NOT NULL,
-  `atrasado` tinyint(1) DEFAULT NULL,
+  `nome` varchar(40) NOT NULL,
+  `isbn` varchar(25) NOT NULL,
+  `autor` varchar(30) NOT NULL,
+  `genero` varchar(20) NOT NULL,
+  `paginas` smallint NOT NULL,
+  `edicao` tinyint NOT NULL,
+  `quantidade` tinyint NOT NULL,
+  `secao` tinyint NOT NULL,
+  `contemimagem` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `estudante`
+-- Dumping data for table `livro`
 --
 
-LOCK TABLES `estudante` WRITE;
-/*!40000 ALTER TABLE `estudante` DISABLE KEYS */;
-/*!40000 ALTER TABLE `estudante` ENABLE KEYS */;
+LOCK TABLES `livro` WRITE;
+/*!40000 ALTER TABLE `livro` DISABLE KEYS */;
+/*!40000 ALTER TABLE `livro` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -53,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-10  2:52:40
+-- Dump completed on 2023-02-21 23:28:34

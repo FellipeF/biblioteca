@@ -16,30 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `funcionario`
+-- Table structure for table `aluguel_livro`
 --
 
-DROP TABLE IF EXISTS `funcionario`;
+DROP TABLE IF EXISTS `aluguel_livro`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `funcionario` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `nome` varchar(50) NOT NULL,
-  `cpf` varchar(20) NOT NULL,
-  `telefone` varchar(20) NOT NULL,
-  `email` varchar(20) NOT NULL,
-  `codigo_acesso` varchar(15) NOT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE `aluguel_livro` (
+  `id_aluguel` int NOT NULL AUTO_INCREMENT,
+  `id_livro` int NOT NULL,
+  `id_estudante` int NOT NULL,
+  `data_aluguel` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_aluguel`,`id_livro`,`id_estudante`),
+  KEY `id_livro` (`id_livro`),
+  KEY `id_estudante` (`id_estudante`),
+  CONSTRAINT `aluguel_livro_ibfk_1` FOREIGN KEY (`id_livro`) REFERENCES `livro` (`id`),
+  CONSTRAINT `aluguel_livro_ibfk_2` FOREIGN KEY (`id_estudante`) REFERENCES `estudante` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `funcionario`
+-- Dumping data for table `aluguel_livro`
 --
 
-LOCK TABLES `funcionario` WRITE;
-/*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
-/*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
+LOCK TABLES `aluguel_livro` WRITE;
+/*!40000 ALTER TABLE `aluguel_livro` DISABLE KEYS */;
+/*!40000 ALTER TABLE `aluguel_livro` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-02-10  2:52:40
+-- Dump completed on 2023-02-21 23:28:34
