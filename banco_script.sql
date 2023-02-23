@@ -44,3 +44,9 @@ create table aluguel_livro(
 	foreign key(id_estudante) references estudante(id),
 	data_aluguel timestamp default current_timestamp
 );
+
+insert into funcionario (nome,cpf,telefone,email,codigo_acesso)
+values('admin','12345678900','(74)99999-9999','admin@univasf.edu.br','acesso');
+
+insert into estudante (nome,email,telefone,matricula,cpf,codigo_acesso,atrasado)
+values ('estudante','estudante@univasf.edu.br','(74)8888-8888','1234','1478','998877',false);
