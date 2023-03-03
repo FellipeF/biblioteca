@@ -50,10 +50,3 @@ values('admin','12345678900','(74)99999-9999','admin@univasf.edu.br','acesso');
 
 insert into estudante (nome,email,telefone,matricula,cpf,codigo_acesso,atrasado)
 values ('estudante','estudante@univasf.edu.br','(74)8888-8888','1234','1478','998877',false);
-
-select * from estudante;
-
-insert into livro (nome, isbn, autor, genero, paginas, edicao, quantidade, secao, contemimagem)
-values (
-
-select * from livro;
