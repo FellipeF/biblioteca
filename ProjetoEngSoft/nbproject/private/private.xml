@@ -3,11 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/ProjetoEngSoft/src/br/com/univasf/projeto/dal/ModuloConexao.java</file>
-            <file>file:/C:/Users/User/Documents/NetBeansProjects/ProjetoEngSoft/src/br/com/univasf/projeto/telas/TelaBibliotecario.java</file>
             <file>file:/C:/Users/User/Documents/NetBeansProjects/ProjetoEngSoft/src/br/com/univasf/projeto/telas/TelaEstudante.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/ProjetoEngSoft/src/br/com/univasf/projeto/telas/TelaConsultarLivros.java</file>
             <file>file:/C:/Users/User/Documents/NetBeansProjects/ProjetoEngSoft/src/br/com/univasf/projeto/telas/TelaInicial.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/ProjetoEngSoft/src/br/com/univasf/projeto/telas/TelaCadastrarLivro.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/ProjetoEngSoft/src/br/com/univasf/projeto/telas/TelaAtualizarCadastro.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/ProjetoEngSoft/src/br/com/univasf/projeto/telas/TelaAtualizarCadastroLivro.java</file>
             <file>file:/C:/Users/User/Documents/NetBeansProjects/ProjetoEngSoft/src/br/com/univasf/projeto/telas/TelaLogin.java</file>
+            <file>file:/C:/Users/User/Documents/NetBeansProjects/ProjetoEngSoft/src/br/com/univasf/projeto/telas/TelaCodigoAcesso.java</file>
         </group>
     </open-files>
 </project-private>

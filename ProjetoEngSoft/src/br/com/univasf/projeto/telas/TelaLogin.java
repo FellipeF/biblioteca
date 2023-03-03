@@ -3,69 +3,104 @@ package br.com.univasf.projeto.telas;
 import java.sql.*;
 import br.com.univasf.projeto.dal.ModuloConexao;
 import javax.swing.JOptionPane;
+import br.com.univasf.projeto.codes.UsuarioLogado;
 
 /**
  *
  * @author User
  */
 public class TelaLogin extends javax.swing.JFrame {
-    
+
     Connection conexao = null;
     PreparedStatement pst = null;
     ResultSet rs = null;
-    
-    public void logar()
-    {
-        String bibliotecario = "select * from funcionario where cpf=? and codigo_acesso=?";
+
+    public int obterIdUsuarioLogado() {
+        int idUsuario = -1;
+        String sql = "select * from estudante where cpf = ?";
         try
         {
-            pst = conexao.prepareStatement(bibliotecario);
+            pst = conexao.prepareStatement(sql);
             pst.setString(1, txtCpf.getText());
-            
-            String codAcesso = new String(txtCod.getPassword());
-            pst.setString(2, codAcesso);
-            
             rs = pst.executeQuery();
             if (rs.next())
             {
+                idUsuario = rs.getInt("id");
+            }
+        } catch (Exception e)
+        {
+          JOptionPane.showMessageDialog(null, e);  
+        }
+        
+        return idUsuario;
+    }
+    
+    public String obterNomeEstudanteLogado()
+    {
+        String nome = null;
+        String sql = "select * from estudante where cpf = ?";
+        try
+        {
+            pst = conexao.prepareStatement(sql);
+            pst.setString(1, txtCpf.getText());
+            rs = pst.executeQuery();
+            if (rs.next())
+            {
+                nome = rs.getString("nome");
+            }
+        } catch (Exception e)
+        {
+            JOptionPane.showMessageDialog(null, e);  
+        }
+        
+        return nome;
+    }
+
+    public void logar() {
+        String bibliotecario = "select * from funcionario where cpf=? and codigo_acesso=?";
+        try {
+            pst = conexao.prepareStatement(bibliotecario);
+            pst.setString(1, txtCpf.getText());
+
+            String codAcesso = new String(txtCod.getPassword());
+            pst.setString(2, codAcesso);
+
+            rs = pst.executeQuery();
+            if (rs.next()) {
                 TelaBibliotecario telabibliotecario = new TelaBibliotecario();
+                TelaBibliotecario.lblNomeBibliotecario.setText(rs.getString(2));
                 telabibliotecario.setVisible(true);
                 this.dispose();
                 conexao.close();
-            } 
-            else
-            {
+            } else {
                 String estudante = "select * from estudante where cpf=? and codigo_acesso=?";
-                try
-                {
+                try {
                     pst = conexao.prepareStatement(estudante);
                     pst.setString(1, txtCpf.getText());
-                    
+
                     codAcesso = new String(txtCod.getPassword());
                     pst.setString(2, codAcesso);
-                    
+
                     rs = pst.executeQuery();
-                    if (rs.next())
-                    {
+                    if (rs.next()) {
                         TelaEstudante telaestudante = new TelaEstudante();
+                        TelaEstudante.lblNomeEstudante.setText(rs.getString(2));
                         telaestudante.setVisible(true);
+                        int idUsuario = obterIdUsuarioLogado();
+                        UsuarioLogado.getInstance().setIdUsuario(idUsuario);
+                        String nomeUsuario = obterNomeEstudanteLogado();
+                        UsuarioLogado.getInstance().setNomeUsuario(nomeUsuario);
                         this.dispose();
                         conexao.close();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Usuário e/ou senha Inválido(s)");
                     }
-                    else
-                    {
-                       JOptionPane.showMessageDialog(null, "Usuário e/ou senha Inválido(s)"); 
-                    }
-                }
-                catch (Exception e)
-                {
+                } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, e);
                 }
-            }      
-        } 
-        catch (Exception e)
-        {
-            JOptionPane.showMessageDialog(null,e);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
     }
 
@@ -75,7 +110,6 @@ public class TelaLogin extends javax.swing.JFrame {
     public TelaLogin() {
         initComponents();
         conexao = ModuloConexao.conector();
-        //System.out.println(conexao);
     }
 
     /**
@@ -91,9 +125,11 @@ public class TelaLogin extends javax.swing.JFrame {
         txtCpf = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtCod = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
+        btnEntrar = new javax.swing.JButton();
+        btnRetornar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setText("CPF");
 
@@ -105,10 +141,17 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Entrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnEntrar.setText("Entrar");
+        btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnEntrarActionPerformed(evt);
+            }
+        });
+
+        btnRetornar.setText("Retornar");
+        btnRetornar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRetornarActionPerformed(evt);
             }
         });
 
@@ -128,8 +171,10 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(258, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(251, 251, 251))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnRetornar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEntrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(248, 248, 248))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,20 +188,29 @@ public class TelaLogin extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(txtCod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(57, 57, 57)
-                .addComponent(jButton1)
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addComponent(btnEntrar)
+                .addGap(18, 18, 18)
+                .addComponent(btnRetornar)
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtCodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         logar();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnEntrarActionPerformed
+
+    private void btnRetornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetornarActionPerformed
+
+        new TelaInicial().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRetornarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -191,13 +245,14 @@ public class TelaLogin extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-            new TelaInicial().setVisible(true);
+                new TelaInicial().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnEntrar;
+    private javax.swing.JButton btnRetornar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPasswordField txtCod;

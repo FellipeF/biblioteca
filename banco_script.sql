@@ -18,10 +18,10 @@ create table livro(
 create table estudante(
 	id int primary key auto_increment,
 	nome varchar(50) not null,
-	email varchar(25) not null,
-	telefone varchar(20) not null,
-	matricula varchar(20) not null,
-	cpf varchar(20) not null,
+	email varchar(50) not null unique,
+	telefone varchar(20) not null unique,
+	matricula varchar(20) not null unique,
+	cpf varchar(20) not null unique,
 	codigo_acesso varchar(15) not null,
 	atrasado bool
 );
@@ -29,9 +29,9 @@ create table estudante(
 create table funcionario(
    	id int primary key auto_increment,
    	nome varchar(50) not null,
-   	cpf varchar(20) not null,
-   	telefone varchar(20) not null,
-   	email varchar(20) not null,
+   	cpf varchar(20) not null unique,
+   	telefone varchar(20) not null unique,
+   	email varchar(50) not null unique,
    	codigo_acesso varchar(15) not null
 );
 
@@ -50,3 +50,10 @@ values('admin','12345678900','(74)99999-9999','admin@univasf.edu.br','acesso');
 
 insert into estudante (nome,email,telefone,matricula,cpf,codigo_acesso,atrasado)
 values ('estudante','estudante@univasf.edu.br','(74)8888-8888','1234','1478','998877',false);
+
+select * from estudante;
+
+insert into livro (nome, isbn, autor, genero, paginas, edicao, quantidade, secao, contemimagem)
+values (
+
+select * from livro;
